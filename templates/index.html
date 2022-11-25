@@ -1,0 +1,44 @@
+{% extends 'base.html'%} {% import 'components.html' as component%} {% block
+formsContent %}
+<div class="w-full">
+  <div class="flex w-full">
+    <div class="w-full justify-center bg-red">
+      {{component.inputComponent('Blood Pressure',
+      'blood-pressure','blood-pressure')}} {{component.inputComponent('Fever',
+      'fever','fever')}} {{component.inputComponent('Diabetes',
+      'diabetes','diabetes')}} {{component.inputComponent('Vomit', 'vomit',
+      'vomit')}}
+    </div>
+
+    <div class="divider divider-horizontal">OR</div>
+
+    <input
+      id="imported"
+      type="file"
+      accept=".csv"
+      class="file-input file-input-bordered file-input-info w-full max-w-xs"
+    />
+  </div>
+  <select id="classification" class="mt-2 select select-bordered w-full">
+    <option disabled selected>Classifier</option>
+    <option value="linear">Linear Regression</option>
+    <option value="nearest">Nearest Neighbor</option>
+
+    <option value="naive">Naive Bayes</option>
+    <option value="svm">SVM</option>
+    <option value="tree">Decision Tree</option>
+    <option value="ann">ANN</option>
+  </select>
+  <button id="classify" class="mt-2 btn btn-primary w-full">Classify</button>
+</div>
+
+{% endblock %} {% block classifyContent %}
+<div
+  class="p-10 backdrop-blur-sm bg-white/30 w-2/4 justify-center content-center"
+>
+  <h1>Response</h1>
+  <div id="inserted">Inputs:</div>
+  <div id="selected">Classifier:</div>
+  <div id="result">Prediction:</div>
+</div>
+{% endblock %}

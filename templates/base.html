@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/main.css')}}"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="hero min-h-screen bg-base-200 p-6">
+      <div class="w-full flex-col">
+        <div class="flex w-full">
+          <div class="p-10 backdrop-blur-sm bg-white/30 w-2/4">
+            {% block formsContent %} {% endblock %}
+          </div>
+          <div class="px-4"></div>
+          {% block classifyContent %} {% endblock %}
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      var bloodPressure = document.getElementById("blood-pressure");
+      var fever = document.getElementById("fever");
+      var diabetes = document.getElementById("diabetes");
+      var vomit = document.getElementById("vomit");
+      var classify = document.getElementById("classification");
+      var imported = document.getElementById("imported");
+      var inserted = document.getElementById("inserted");
+      var selected = document.getElementById("selected");
+
+      document
+        .getElementById("classify")
+        .addEventListener("click", function () {
+          if (imported.value) {
+            const input = imported.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const text = e.target.result;
+              const toArray = text.split(",");
+              console.log(toArray);
+              console.log(toArray[0]);
+
+              inserted.textContent = `Inputs: ${toArray[0]}, ${toArray[1]}, ${toArray[2]}, ${toArray[3]}`;
+              selected.textContent = `Classifier: ${toArray[4]}`;
+            };
+
+            reader.readAsText(input);
+          } else {
+            inserted.textContent = `Inputs: ${bloodPressure.value}, ${fever.value}, ${diabetes.value}, ${vomit.value}`;
+            selected.textContent = `Classifier: ${classify.value}`;
+          }
+        });
+    </script>
+  </body>
+</html>
