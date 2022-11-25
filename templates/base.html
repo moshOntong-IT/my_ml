@@ -25,18 +25,34 @@
     </div>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      var bloodPressure = document.getElementById("blood-pressure");
-      var fever = document.getElementById("fever");
-      var diabetes = document.getElementById("diabetes");
-      var vomit = document.getElementById("vomit");
+      var education = document.getElementById("education");
+      var marital_status = document.getElementById("marital-status");
+      var occupation = document.getElementById("occupation");
+      var gender = document.getElementById("gender");
       var classify = document.getElementById("classification");
       var imported = document.getElementById("imported");
       var inserted = document.getElementById("inserted");
       var selected = document.getElementById("selected");
+      var result = document.getElementById("result");
+
+      var predictFetch = async (arraysValue, type) => {
+        var payload = {
+          data: arraysValue,
+          classifier: type,
+        };
+        var data = new FormData();
+        data.append("json", JSON.stringify(payload));
+        var response = await fetch("/test", {
+          method: "POST",
+          body: data,
+        });
+        var result = await response.json();
+        return result;
+      };
 
       document
         .getElementById("classify")
-        .addEventListener("click", function () {
+        .addEventListener("click", async function () {
           if (imported.value) {
             const input = imported.files[0];
             const reader = new FileReader();
@@ -53,8 +69,19 @@
 
             reader.readAsText(input);
           } else {
-            inserted.textContent = `Inputs: ${bloodPressure.value}, ${fever.value}, ${diabetes.value}, ${vomit.value}`;
+            // merge into array form the values of the inputs as integer
+            var arraysValue = [
+              parseInt(education.value),
+              parseInt(marital_status.value),
+              parseInt(occupation.value),
+              parseInt(gender.value),
+            ];
+
+            var rst = await predictFetch(arraysValue, classify.value);
+
+            inserted.textContent = `Inputs: ${education.value}, ${marital_status.value}, ${occupation.value}, ${gender.value}`;
             selected.textContent = `Classifier: ${classify.value}`;
+            result.textContent = `Prediction: ${rst["result"]}`;
           }
         });
     </script>
