@@ -57,14 +57,22 @@
             const input = imported.files[0];
             const reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = async function (e) {
               const text = e.target.result;
               const toArray = text.split(",");
-              console.log(toArray);
-              console.log(toArray[0]);
+
+              var arraysValue = [
+                parseInt(toArray[0]),
+                parseInt(toArray[1]),
+                parseInt(toArray[2]),
+                parseInt(toArray[3]),
+              ];
+
+              var rst = await predictFetch(arraysValue, toArray[4]);
 
               inserted.textContent = `Inputs: ${toArray[0]}, ${toArray[1]}, ${toArray[2]}, ${toArray[3]}`;
               selected.textContent = `Classifier: ${toArray[4]}`;
+              result.textContent = `Prediction: ${rst["result"]}`;
             };
 
             reader.readAsText(input);
