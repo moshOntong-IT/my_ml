@@ -55,11 +55,12 @@
         .addEventListener("click", async function () {
           if (imported.value) {
             const input = imported.files[0];
+            <!-- D:/users/cities(1).csv -->
             const reader = new FileReader();
 
             reader.onload = async function (e) {
               const text = e.target.result;
-              const toArray = text.split(",");
+              const toArray = text.split(","); // [12,1,4,5,naive]
 
               var arraysValue = [
                 parseInt(toArray[0]),
@@ -87,9 +88,9 @@
 
             var rst = await predictFetch(arraysValue, classify.value);
 
-            inserted.textContent = `Inputs: ${education.value}, ${marital_status.value}, ${occupation.value}, ${gender.value}`;
-            selected.textContent = `Classifier: ${classify.value}`;
-            result.textContent = `Prediction: ${rst["result"]}`;
+            inserted.textContent = `${rst["categoryData"]}`;
+            selected.textContent = `${classify.value}`;
+            result.textContent = `${rst["result"]}`;
           }
         });
     </script>

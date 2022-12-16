@@ -154,6 +154,8 @@ cython_debug/
 
 
 node_modules/
+myMLEnv/
+env/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

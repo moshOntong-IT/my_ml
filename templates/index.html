@@ -3,29 +3,32 @@ formsContent %}
 <div class="w-full">
   <div class="flex w-full">
     <div class="w-full justify-center bg-red">
-      {{component.inputComponent('Education', 'education','education')}}
-      {{component.inputComponent('Marital Status',
-      'marital-status','marital-status')}}
-      {{component.inputComponent('Occupation', 'occupation','occupation')}}
-      {{component.inputComponent('Gender', 'gender', 'gender')}}
+      {{component.selectComponent('Education', 'education', 'education',
+      options['education'])}} {{component.selectComponent('Marital Status',
+      'marital-status', 'marital-status', options['marital'])}}
+      {{component.selectComponent('Occupation', 'occupation', 'occupation',
+      options['occupation'])}} {{component.selectComponent('Gender',
+      'gender','gender', options['gender'])}}
     </div>
 
     <div class="divider divider-horizontal">OR</div>
 
-    <input
-      id="imported"
-      type="file"
-      accept=".csv"
-      class="file-input file-input-bordered file-input-info w-full max-w-xs"
-    />
+    <div class="flex justify-center items-center w-full max-w-xs">
+      <input
+        id="imported"
+        type="file"
+        accept=".csv"
+        class="file-input file-input-bordered file-input-info w-full max-w-xs"
+      />
+    </div>
   </div>
   <select id="classification" class="mt-2 select select-bordered w-full">
     <option disabled selected>Classifier</option>
-    <option value="linear">Linear Regression</option>
-    <option value="nearest">Nearest Neighbor</option>
+    <!-- <option value="linear">Linear Regression</option> -->
+    <!-- <option value="nearest">Nearest Neighbor</option> -->
 
     <option value="naive">Naive Bayes</option>
-    <option value="svm">SVM</option>
+    <!-- <option value="svm">SVM</option> -->
     <option value="tree">Decision Tree</option>
     <option value="ann">ANN</option>
   </select>
@@ -33,12 +36,27 @@ formsContent %}
 </div>
 
 {% endblock %} {% block classifyContent %}
-<div
-  class="p-10 backdrop-blur-sm bg-white/30 w-2/4 justify-center content-center"
->
-  <h1>Response</h1>
-  <div id="inserted">Inputs:</div>
-  <div id="selected">Classifier:</div>
-  <div id="result">Prediction:</div>
+<div class="p-10 bg-white w-2/4 rounded-lg shadow-lg">
+  <h1 class="text-2xl font-bold text-center">Response</h1>
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold mb-2">Inputs:</h2>
+    <div id="inserted" class="p-4 bg-gray-200 rounded-lg">
+      <!-- Insert inputs here -->
+    </div>
+  </div>
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold mb-2">Classifier:</h2>
+    <div id="selected" class="p-4 bg-gray-200 rounded-lg">
+      <!-- Insert classifier here -->
+    </div>
+  </div>
+  <div class="mt-4">
+    <h2 class="text-xl font-semibold mb-2">
+      Makes more than 50000 US Dollars in an year?
+    </h2>
+    <div id="result" class="p-4 bg-gray-200 rounded-lg">
+      <!-- Insert prediction here -->
+    </div>
+  </div>
 </div>
 {% endblock %}
