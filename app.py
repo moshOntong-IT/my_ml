@@ -21,12 +21,6 @@ naive_model_path = os.path.join(
     current_dir, 'models', 'naive_model.joblib')
 decision_model_path = os.path.join(
     current_dir, 'models', 'decision_model.joblib')
-nearest_model_path = os.path.join(
-    current_dir, 'models', 'knn.joblib')
-svm_model_path = os.path.join(
-    current_dir, 'models', 'svm.joblib')
-linear_model_path = os.path.join(
-    current_dir, 'models', 'linear.joblib')
 ann_model_path = os.path.join(
     current_dir, 'models', 'ann.h5')
 
@@ -46,9 +40,6 @@ def binary_to_yes_no(binary):
 # print(decision_model_path)
 naive_model = joblib.load(naive_model_path)
 decision_model = joblib.load(decision_model_path)
-nearest_model = joblib.load(nearest_model_path)
-svm_model = joblib.load(svm_model_path)
-linear_model = joblib.load(linear_model_path)
 ann_model = keras.models.load_model(ann_model_path)
 
   #  Create a dictionary of options
@@ -101,14 +92,6 @@ def test():
         prediction = binary_to_yes_no(prediction)
     elif classifier == 'tree':
         prediction = decision_model.predict([data])[0]
-        prediction = binary_to_yes_no(prediction)
-    elif classifier == 'linear':
-        prediction = linear_model.predict([data])[0]
-    elif classifier == 'nearest':
-        prediction = nearest_model.predict([data])[0]
-        prediction = binary_to_yes_no(prediction)
-    elif classifier == 'svm':
-        prediction = svm_model.predict([data])[0]
         prediction = binary_to_yes_no(prediction)
     elif classifier == 'ann':
         prediction = ann_model.predict([data])[0][0]
